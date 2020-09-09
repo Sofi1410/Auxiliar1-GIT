@@ -20,4 +20,9 @@ def index(request): #the index view
 			return redirect("/") #reloading the page
 		
 			#Persona A agrega código AQUI!
+                        if "taskDelete" in request.POST: #checking if there is a request to delete a todo
+                        checkedlist = request.POST["checkedbox"] #checked todos to be deleted
+                                for todo_id in checkedlist:
+                                    todo = TodoList.objects.get(id=int(todo_id)) #getting todo id
+                                    todo.delete() #deleting todo
 	return render(request, "index.html", {"todos": todos, "categories":categories})
